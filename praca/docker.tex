@@ -1,0 +1,28 @@
+\chapter{Docker}
+Docker jest to narzędzie tworzące wirtualne kontenery.\ Kontenery te mogą odpowiadać za pojedynczą usługę, bądź całe systemy operacyjne.\ Zadaniem Dockera jest wspomagać pracę programisty nad skomplikowanym ekosystemem aplikacji.\ Dodatkowo wspiera on pracę z mikroserwisami.
+\section{Obrazy}
+W projekcie wykorzystano 3 rodzaje obrazów:
+
+\subsection{Nginx}
+Obraz dla serwera Nginx, jest napisany bardzo prosto, ze względu na to, że zadaniem aplikacji jest jedynie bycie Load Balancerem, dlatego kopiuje on konfigurację Load Balancera, oraz uruchamia serwer Nginx, tak jak to przestawiono na \textbf{wycinkach kodu} \textbf{\ref{ls:ng}, \ref{ls:ngc}}.
+
+\lstinputlisting[language=bash, caption={Plik Dockerfile dla Nginx}, label=ls:ng]{Dockerfile_ng}
+\lstinputlisting[language=bash, caption={Plik konfiguracyjny dla Nginx}, label=ls:ngc]{nginx.conf}
+
+\subsection{PostgreSQL}
+Obraz dla serwera PostgreSQL, wykorzystuje gotowy predefiniowany obraz dla PostgreSQL, dodając instalację Bucardo.\ Plik Dockerfile dla PostgreSQL został przedstawiony na \refsource{wycinku kodu}{ls:ps}, a konfiguracja Bucardo znajduje się w \refsource{plik}{ls:psc}.
+
+\lstinputlisting[language=bash, caption={Plik Dockerfile dla PostgreSql}, label=ls:ps]{Dockerfile_sql}
+\lstinputlisting[language=bash, caption={Skrypt konfiguracyjny dla Bucardo}, label=ls:psc]{bbb.sh}
+
+\clearpage
+\subsection{Symfony}
+Obraz Symfony bazuje na systemie alpine, który jest minimalną instalacją systemu bazującego na jądrze Linux.\ Jego zadaniem jest zainstalowac odpowiednie sterowniki, a następnie uruchomić kontener i uruchomić aplikację.\ Konfiguracja została przedstawiona w \refsource{pliku}{ls:php}.
+
+\lstinputlisting[language=bash, caption={Plik Dockerfile dla Symfony}, label=ls:php]{Dockerfile_php}
+
+\clearpage
+\section{Docker Compose}
+Docker Compose \cite{DocCom2023} to oprogramowanie wykorzystywane do tworzenia konfiguracji obsługujących wiele aplikacji, które są łączone w jeden ekosystem z zależnościami między nimi.\  Konfiguracja wykorzystywana w projekcie została opisana w \refsource{pliku}{ls:dc}.\ Konfiguracja pozwala na uruchomienie trzech kontenerów aplikacji, trzech kontenerów bazy danych oraz load balancera.\ Dodatkowo Docker Compose umożliwia utworzenie zależności między aplikacjami dzięki czemu, aplikacje uruchamiają się w odpowiednim czasie.
+
+\lstinputlisting[language=bash, caption={Plik Docker Compose ekosystemu aplikacji}, label=ls:dc]{compose.yaml}

@@ -1,0 +1,42 @@
+\documentclass[12pt, openany]{pwrdpl}
+\usepackage{textcomp}
+
+\author{Bartosz Błyszcz}
+\titlePL{System do zarzązania biblioteką wykorzystujący rozproszone serwery bazodanowe}
+\thesistype{PROJEKT}
+
+\supervisor{dr inż. Robert Wójcik}
+
+\degreeprogramme{Informatyka Techniczna}
+
+\date{2024}
+
+\faculty{Wydział Informatyki i Telekomunikacji}
+
+\begin{document}
+
+	\titlepages
+	\RedefinePlainStyle
+	\setcounter{tocdepth}{2}
+
+	\clearpage
+	\tableofcontents
+
+	\sloppy
+	\setnowidow
+	
+	\include{wstep}
+	\include{baza}
+	\include{docker}
+	\include{app}
+	\renewcommand*{\listfigurename}{Wykaz rysunków}
+	\renewcommand*{\listtablename}{Wykaz tabel}
+	\renewcommand*{\lstlistlistingname}{Wykaz fragmentów kodu}
+	\listoffigures
+	\clearpage
+	\listoftables
+	\lstlistoflistings
+
+	\printbibliography
+
+\end{document}

@@ -1,0 +1,67 @@
+version: "3.8"
+services:
+  app1:
+    image: lsm
+    ports:
+      - "8081:8000"
+    environment:
+      - DATABASE_URL=postgresql://user_d:user_d@db1:5432/user_d?serverVersion=13&charset=utf8
+    depends_on:
+      - db1
+  app2:
+    image: lsm
+    ports:
+      - "8082:8000"
+    environment:
+      - DATABASE_URL=postgresql://user_d:user_d@db2:5432/user_d?serverVersion=13&charset=utf8
+    depends_on:
+      - db2
+  app3:
+    image: lsm
+    ports:
+      - "8083:8000"
+    environment:
+      - DATABASE_URL=postgresql://user_d:user_d@db3:5432/user_d?serverVersion=13&charset=utf8
+    depends_on:
+      - db3
+  nginx:
+    build: ./nginx
+    ports:
+      - "8080:80"
+    depends_on:
+      - app1
+      - app2
+      - app3
+  db1:
+    build: ./sql
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: user_d
+      POSTGRES_USER: user_d
+      POSTGRES_DB: user_d
+      POSTGRES_HOST_AUTH_METHOD: trust
+    depends_on:
+      - db2
+      - db3
+
+  db2:
+    build: ./sql
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_PASSWORD: user_d
+      POSTGRES_USER: user_d
+      POSTGRES_DB: user_d
+      POSTGRES_HOST_AUTH_METHOD: trust
+    depends_on:
+      - db3
+  db3:
+    build: ./sql
+    ports:
+      - "5434:5432"
+    environment:
+      POSTGRES_PASSWORD: user_d
+      POSTGRES_USER: user_d
+      POSTGRES_DB: user_d
+      POSTGRES_HOST_AUTH_METHOD: trust
